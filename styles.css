@@ -1,7 +1,7 @@
 /* Estilos Globales, Paleta de Colores y Tipografía (Objetivo 9) */
 :root {
     --primary-color: #007bff; /* Azul vibrante */
-    --secondary-color: #28a745; /* Verde para éxito/compra */
+    --secondary-color: #4CAF50; /* Verde Tecnológico */
     --dark-color: #333;
     --light-color: #f4f4f4;
     --white-color: #fff;
@@ -50,13 +50,19 @@ ul {
     z-index: 1000;
 }
 
-.logo {
-    font-size: 1.8rem;
+/* Nuevo Estilo Logo (Requisito Nuevo) */
+.main-header .logo {
+    font-size: 2.5rem; /* Más grande */
+    font-weight: 700;
+    color: var(--secondary-color); /* Verde Tecnológico */
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.8), 0 0 15px rgba(76, 175, 80, 0.5); /* Efecto Neón */
+    letter-spacing: 2px;
 }
 
 .nav-list {
     display: flex; /* Flexbox */
-    gap: 2rem;
+    gap: 1.5rem;
+    align-items: center;
 }
 
 .nav-list a {
@@ -69,6 +75,34 @@ ul {
     color: var(--primary-color);
 }
 
+/* Botón de navegación (Registro/Acceso) */
+.btn-nav-action {
+    background: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: var(--font);
+    font-size: 1rem;
+}
+
+.btn-nav-action:hover {
+    background: #0056b3;
+}
+
+/* Badge de Usuario Logueado */
+.user-badge {
+    color: var(--secondary-color);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    margin-right: -1rem; /* Para alineación en el nav */
+}
+
+
 /* Contador de Carrito */
 .cart-counter {
     background-color: var(--secondary-color);
@@ -79,16 +113,17 @@ ul {
     position: relative;
     top: -10px;
     left: 5px;
-    /* Ajusta la posición para que no afecte la navegación */
     display: inline-block;
 }
 
-/* HERO BANNER (Multimedia) */
+/* HERO BANNER: Fondo Moderno (Requisito Nuevo) */
 .hero-banner {
-    padding: var(--padding-section);
-    background: var(--dark-color); /* Background color */
+    /* Nuevo background: degradado azul moderno/tecnológico */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
     color: var(--white-color);
     text-align: center;
+    padding: 6rem 5% 4rem; /* Más padding para impacto visual */
+    border-bottom: 5px solid #00c6ff; /* Borde brillante */
 }
 
 .hero-banner h2 {
@@ -101,9 +136,76 @@ ul {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    /* Flexbox para centrar y manejar video responsivo */
     display: flex;
     justify-content: center;
+    /* Estilo de video para que se vea bien sobre el fondo */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ==================================== */
+/* MODAL DE AUTENTICACIÓN (NUEVO) */
+/* ==================================== */
+.modal-auth {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background-color: var(--white-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.modal-content h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    text-align: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.small-text {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--dark-color);
+}
+
+.btn-logout {
+    background-color: #dc3545 !important;
+    margin-top: 10px;
+}
+.btn-logout:hover {
+    background-color: #c82333 !important;
+}
+
+.hidden {
+    display: none !important;
 }
 
 /* ==================================== */
@@ -126,6 +228,7 @@ ul {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative; /* Para la insignia de descuento */
 }
 
 .product-card:hover {
@@ -152,6 +255,19 @@ ul {
     margin-bottom: 1rem;
 }
 
+/* Insignia de descuento */
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ffc107;
+    color: var(--dark-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
 .btn-add-cart {
     background-color: var(--secondary-color);
     color: var(--white-color);
@@ -165,14 +281,71 @@ ul {
 }
 
 .btn-add-cart:hover {
-    background-color: #218838;
+    background-color: #3b8e40;
+}
+
+/* Estilos para la tabla del carrito (Requisito 9) */
+.cart-detail table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.cart-detail th, .cart-detail td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-detail thead th {
+    background-color: #f8f8f8;
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+.cart-detail tfoot td {
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-top: 2px solid var(--primary-color);
+}
+
+.cart-detail .total-final {
+    color: var(--primary-color);
+}
+
+.cart-detail .qty-control button {
+    background-color: var(--light-color);
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 4px;
+}
+
+.btn-clear-cart {
+    background-color: #dc3545;
+    color: var(--white-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-clear-cart:hover {
+    background-color: #c82333;
 }
 
 /* ==================================== */
 /* SECCIÓN RESEÑAS (CSS GRID - Requisito 4) */
 /* ==================================== */
 .reviews-bg {
-    background-color: var(--dark-color);
+    background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%); /* Color tecnológico */
     color: var(--white-color);
     text-align: center;
 }
@@ -185,7 +358,7 @@ ul {
 }
 
 .review-card {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo más visible */
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -263,7 +436,7 @@ ul {
 }
 
 .footer-section h4 {
-    color: var(--primary-color);
+    color: var(--secondary-color);
     margin-bottom: 1rem;
 }
 
@@ -286,7 +459,7 @@ ul {
 }
 
 .social-links a:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 /* ==================================== */
@@ -299,10 +472,6 @@ ul {
         flex-direction: column;
         text-align: center;
         padding: 1rem 3%;
-    }
-
-    .main-nav {
-        width: 100%;
     }
     
     .nav-list {
@@ -317,6 +486,10 @@ ul {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
+    .main-header .logo {
+        font-size: 2rem;
+    }
+
     /* RESEÑAS: Grid Responsivo */
     .reviews-grid {
         /* Pasa a 1 sola columna en pantallas pequeñas */
@@ -328,10 +501,6 @@ ul {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
-    }
-
-    .footer-section {
-        width: 100%;
     }
 
     .social-links {
