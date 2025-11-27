@@ -13,13 +13,17 @@
 </head>
 <body>
     <header class="main-header">
-        <h1 class="logo">TechFlow</h1>
+        <h1 class="logo">TechFlow</h1> 
         <nav class="main-nav">
             <ul class="nav-list">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#productos">Productos</a></li>
                 <li><a href="#reseñas">Reseñas</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <span id="welcome-user" class="hidden user-badge"></span>
+                    <button id="btn-login-register" class="btn-nav-action">Registro / Acceso</button>
+                </li>
                 <li>
                     <a href="#carrito" aria-label="Ver Carrito">
                         <i class="fas fa-shopping-cart"></i>
@@ -36,7 +40,7 @@
             <h2>Tecnología para Potenciar tu Mundo</h2>
             <p>Descubre los mejores insumos de computación y accesorios móviles.</p>
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/l5A3-U2o9V0?si=pXvH6u4Y7g2XhE2d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/Y3Rst2WEuYg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -89,6 +93,22 @@
             </form>
         </section>
     </main>
+
+    <section id="auth-modal" class="modal-auth hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="btn-close-modal">X</button>
+            <h4>Acceso a Precios Mayoristas</h4>
+            <p class="small-text">Simulación: Usa usuario: <b>admin</b> y contraseña: <b>123</b></p>
+            <form id="auth-form">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required>
+                <button type="submit" class="btn-submit">Ingresar</button>
+                <button type="button" id="btn-logout" class="btn-submit btn-logout hidden">Cerrar Sesión</button>
+            </form>
+        </div>
+    </section>
 
     <footer class="main-footer">
         <div class="footer-section info-section">
