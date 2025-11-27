@@ -1,20 +1,31 @@
 // ===================================================
-// VARIABLES GLOBALES
+// VARIABLES GLOBALES Y DOM
 // ===================================================
-let productosGlobales = []; // Almacenará los productos de la API
-const URL_API = 'https://fakestoreapi.com/products?limit=12'; // API pública
+let productosGlobales = []; 
+const URL_API = 'https://fakestoreapi.com/products?limit=12'; 
 const productosContainer = document.getElementById('productos-container');
 const contadorCarrito = document.getElementById('contador-carrito');
 const carritoDetalle = document.getElementById('carrito-detalle');
 const contactForm = document.getElementById('contact-form');
 
+// Nuevas variables para Autenticación (Requisito Nuevo)
+const authModal = document.getElementById('auth-modal');
+const btnLoginRegister = document.getElementById('btn-login-register');
+const closeModal = document.getElementById('close-modal');
+const authForm = document.getElementById('auth-form');
+const btnLogout = document.getElementById('btn-logout');
+const welcomeUserSpan = document.getElementById('welcome-user');
+
+let isLoggedIn = false;
+let userType = 'normal'; // Inicialmente normal
+
 // ===================================================
 // INICIALIZACIÓN
 // ===================================================
 document.addEventListener('DOMContentLoaded', () => {
-    cargarProductos();     // Llama a la API y renderiza
+    checkAuthStatus();     // Verifica si hay un usuario logueado al iniciar
+    cargarProductos();     // Llama a la API y renderiza con precios correctos
     actualizarContador();  // Inicializa el contador con LocalStorage
-    // Opcional: renderizarCarrito(); si quieres mostrar el detalle al inicio.
 });
 
 // ===================================================
@@ -40,19 +51,34 @@ async function cargarProductos() {
 
 function renderizarProductos(productos) {
     productosContainer.innerHTML = ''; 
+    
+    // Carga el estado de autenticación ANTES de renderizar
+    checkAuthStatus(); 
+    
     productos.forEach(producto => {
+        
+        let precioFinal = producto.price;
+        let discountMsg = '';
+
+        // Lógica de Precios Diferenciados (Requisito Nuevo)
+        if (isLoggedIn && userType === 'mayorista') {
+            const descuento = 0.15; // 15% de descuento
+            precioFinal = precioFinal * (1 - descuento);
+            discountMsg = `<span class="discount-badge">15% OFF Mayorista!</span>`;
+        }
+        
         const card = document.createElement('div');
         card.classList.add('product-card');
 
-        // Renderizado con data-atributos para el carrito
         card.innerHTML = `
             <img src="${producto.image}" alt="Imagen de ${producto.title}" loading="lazy">
             <h3>${producto.title}</h3>
-            <p class="price">$${producto.price.toFixed(2)}</p>
+            ${discountMsg}
+            <p class="price">$${precioFinal.toFixed(2)}</p>
             <button class="btn-add-cart" 
                     data-id="${producto.id}" 
                     data-nombre="${producto.title}" 
-                    data-precio="${producto.price}">
+                    data-precio="${precioFinal}"> 
                 Añadir al Carrito
             </button>
         `;
@@ -66,23 +92,19 @@ function renderizarProductos(productos) {
 // PARTE 2: CARRITO Y LOCALSTORAGE (Req 8)
 // ===================================================
 
-// Funciones de Persistencia
 function obtenerCarrito() {
     const carritoJSON = localStorage.getItem('carrito');
     return carritoJSON ? JSON.parse(carritoJSON) : [];
 }
 
 function guardarCarrito(carrito) {
-    // Guarda el objeto en LocalStorage como JSON string (Requisito 8)
     localStorage.setItem('carrito', JSON.stringify(carrito)); 
     actualizarContador();
-    // Vuelve a renderizar el detalle del carrito
     renderizarCarrito(); 
 }
 
 function actualizarContador() {
     const carrito = obtenerCarrito();
-    // Suma las cantidades de todos los productos (Requisito 8)
     const totalItems = carrito.reduce((acc, prod) => acc + prod.cantidad, 0); 
     contadorCarrito.textContent = totalItems;
 }
@@ -92,7 +114,7 @@ function agregarAlCarrito(idProducto, nombre, precio) {
     const productoExistente = carrito.find(prod => prod.id === idProducto);
 
     if (productoExistente) {
-        productoExistente.cantidad++; // Edición de Cantidades (Req 9)
+        productoExistente.cantidad++; 
     } else {
         carrito.push({ 
             id: idProducto, 
@@ -124,7 +146,7 @@ function cargarEventosAgregar() {
 
 function renderizarCarrito() {
     const carrito = obtenerCarrito();
-    let html = '<h3>Detalle de Carrito</h3>';
+    let html = '<h3>Tu Carrito de Compras</h3>';
 
     if (carrito.length === 0) {
         html += '<p class="empty-cart-msg">El carrito está vacío. ¡Añade productos!</p>';
@@ -134,7 +156,6 @@ function renderizarCarrito() {
 
     let totalCompra = 0;
     
-    // Generación de la tabla de productos (Requisito 9)
     html += '<table><thead><tr><th>Producto</th><th>Cant.</th><th>Total</th><th></th></tr></thead><tbody>';
 
     carrito.forEach(prod => {
@@ -155,7 +176,6 @@ function renderizarCarrito() {
         `;
     });
 
-    // Total Dinámico (Requisito 9)
     html += `
         </tbody>
         <tfoot>
@@ -173,7 +193,6 @@ function renderizarCarrito() {
 }
 
 function cargarEventosEdicion() {
-    // Escucha eventos de edición y eliminación
     carritoDetalle.addEventListener('click', (e) => {
         const target = e.target;
         const id = parseInt(target.getAttribute('data-id'));
@@ -225,7 +244,6 @@ function vaciarCarrito() {
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         
-        // Validación DOM (Ejemplo de manipulación de DOM - Req 7)
         const emailInput = document.getElementById('email');
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         
@@ -235,14 +253,87 @@ if (contactForm) {
             emailInput.focus();
         } 
         
-        // Si la validación pasa, Formspree (action en HTML) maneja el envío.
-        // Simulación de mensaje de éxito post-envío:
         if (!e.defaultPrevented) {
              setTimeout(() => {
-                // Esto se ejecuta después de que Formspree envía los datos
                 alert('¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.');
                 contactForm.reset();
             }, 100);
         }
     });
 }
+
+
+// ===================================================
+// PARTE 5: LÓGICA DE AUTENTICACIÓN (NUEVO)
+// ===================================================
+
+function checkAuthStatus() {
+    const user = localStorage.getItem('userTechFlow');
+    if (user) {
+        isLoggedIn = true;
+        userType = 'mayorista';
+        const userData = JSON.parse(user);
+        
+        // Muestra el nombre y oculta el botón de Login
+        btnLoginRegister.classList.add('hidden');
+        welcomeUserSpan.textContent = `Hola, ${userData.username}! (Mayorista)`;
+        welcomeUserSpan.classList.remove('hidden');
+        btnLogout.classList.remove('hidden');
+    } else {
+        isLoggedIn = false;
+        userType = 'normal';
+        // Muestra el botón de Login y oculta el nombre/logout
+        btnLoginRegister.classList.remove('hidden');
+        welcomeUserSpan.classList.add('hidden');
+        btnLogout.classList.add('hidden');
+    }
+}
+
+// Handlers para el Modal
+btnLoginRegister.addEventListener('click', () => {
+    // Si ya está logueado, permite hacer Logout desde el modal
+    if(isLoggedIn) {
+        authModal.classList.remove('hidden');
+    } else {
+        // Si no está logueado, muestra el formulario de Login
+        authModal.classList.remove('hidden');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    }
+});
+
+closeModal.addEventListener('click', () => {
+    authModal.classList.add('hidden');
+});
+
+// Handler para el Login
+authForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const usernameInput = document.getElementById('username').value;
+    const passwordInput = document.getElementById('password').value;
+
+    // Simulación de credenciales: 
+    if (usernameInput === 'admin' && passwordInput === '123') {
+        localStorage.setItem('userTechFlow', JSON.stringify({ username: usernameInput, loggedIn: true }));
+        
+        // Vuelve a cargar productos para aplicar descuentos
+        cargarProductos(); 
+        
+        authModal.classList.add('hidden');
+        alert('Acceso exitoso. ¡Bienvenido a precios mayoristas!');
+    } else {
+        alert('Credenciales incorrectas. Intenta "admin" y "123".');
+    }
+});
+
+// Handler para el Logout
+btnLogout.addEventListener('click', () => {
+    localStorage.removeItem('userTechFlow');
+    localStorage.removeItem('carrito'); // Opcional: vaciar el carrito al cerrar sesión
+    
+    // Vuelve a cargar productos para quitar descuentos y vacía el carrito
+    cargarProductos(); 
+    
+    authModal.classList.add('hidden');
+    alert('Sesión cerrada. Los precios han vuelto a la tarifa normal.');
+});
