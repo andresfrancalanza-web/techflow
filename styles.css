@@ -1,0 +1,345 @@
+/* Estilos Globales, Paleta de Colores y Tipografía (Objetivo 9) */
+:root {
+    --primary-color: #007bff; /* Azul vibrante */
+    --secondary-color: #28a745; /* Verde para éxito/compra */
+    --dark-color: #333;
+    --light-color: #f4f4f4;
+    --white-color: #fff;
+    --font: 'Poppins', sans-serif; /* Google Font */
+    --padding-section: 4rem 5%;
+}
+
+* {
+    /* Modelo de Caja: border-box para evitar desbordamientos */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: var(--font);
+    line-height: 1.6;
+    background-color: var(--light-color);
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+    transition: color 0.3s;
+}
+
+ul {
+    list-style: none;
+}
+
+.section-padding {
+    padding: var(--padding-section);
+}
+
+/* HEADER y NAV: Flexbox (Objetivo 9) */
+.main-header {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 1rem 5%;
+    display: flex; /* Flexbox */
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.8rem;
+}
+
+.nav-list {
+    display: flex; /* Flexbox */
+    gap: 2rem;
+}
+
+.nav-list a {
+    color: var(--light-color);
+    padding: 0.5rem 0;
+    transition: color 0.3s;
+}
+
+.nav-list a:hover {
+    color: var(--primary-color);
+}
+
+/* Contador de Carrito */
+.cart-counter {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border-radius: 50%;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    position: relative;
+    top: -10px;
+    left: 5px;
+    /* Ajusta la posición para que no afecte la navegación */
+    display: inline-block;
+}
+
+/* HERO BANNER (Multimedia) */
+.hero-banner {
+    padding: var(--padding-section);
+    background: var(--dark-color); /* Background color */
+    color: var(--white-color);
+    text-align: center;
+}
+
+.hero-banner h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.video-container {
+    margin-top: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    /* Flexbox para centrar y manejar video responsivo */
+    display: flex;
+    justify-content: center;
+}
+
+/* ==================================== */
+/* SECCIÓN PRODUCTOS (GRID/FLEXBOX - Requisito 4) */
+/* ==================================== */
+.products-grid {
+    display: grid; /* Usamos Grid para la distribución de tarjetas */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    background-color: var(--white-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+.product-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.product-card .price {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.btn-add-cart {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-add-cart:hover {
+    background-color: #218838;
+}
+
+/* ==================================== */
+/* SECCIÓN RESEÑAS (CSS GRID - Requisito 4) */
+/* ==================================== */
+.reviews-bg {
+    background-color: var(--dark-color);
+    color: var(--white-color);
+    text-align: center;
+}
+
+.reviews-grid {
+    display: grid; /* Grid para las reseñas */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.review-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.review-card p {
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+/* ==================================== */
+/* SECCIÓN CONTACTO (Formulario) */
+/* ==================================== */
+.contact-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 4rem 5%;
+}
+
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section label {
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.contact-section input,
+.contact-section textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: var(--font);
+    font-size: 1rem;
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* ==================================== */
+/* FOOTER (Flexbox) */
+/* ==================================== */
+.main-footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 2rem 5%;
+    display: flex; /* Flexbox */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.footer-section {
+    flex: 1;
+}
+
+.footer-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.nav-section ul li a {
+    color: var(--light-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.social-links {
+    display: flex; /* Flexbox para los íconos */
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    font-size: 1.5rem;
+    color: var(--light-color);
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* ==================================== */
+/* DISEÑO RESPONSIVO: MEDIA QUERIES (Requisito 4) */
+/* ==================================== */
+@media (max-width: 768px) {
+
+    /* HEADER: Adaptación a móvil */
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem 3%;
+    }
+
+    .main-nav {
+        width: 100%;
+    }
+    
+    .nav-list {
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    
+    .nav-list a {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* RESEÑAS: Grid Responsivo */
+    .reviews-grid {
+        /* Pasa a 1 sola columna en pantallas pequeñas */
+        grid-template-columns: 1fr; 
+    }
+
+    /* FOOTER: Disponer verticalmente (< 768px) */
+    .main-footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .footer-section {
+        width: 100%;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+    
+    /* PRODUCTOS: Adaptación */
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}

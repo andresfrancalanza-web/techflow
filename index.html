@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TechFlow: Tu tienda online de insumos de computación y accesorios de telefonía. Descubre la mejor tecnología con precios mayoristas.">
+    <meta name="keywords" content="tecnología, e-commerce, computación, telefonía, insumos, accesorios, mayorista">
+    <title>TechFlow: Insumos de Computación y Telefonía</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 class="logo">TechFlow</h1>
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#reseñas">Reseñas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li>
+                    <a href="#carrito" aria-label="Ver Carrito">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="contador-carrito" class="cart-counter">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        <section id="inicio" class="hero-banner">
+            <h2>Tecnología para Potenciar tu Mundo</h2>
+            <p>Descubre los mejores insumos de computación y accesorios móviles.</p>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/l5A3-U2o9V0?si=pXvH6u4Y7g2XhE2d" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="productos" class="section-padding">
+            <h3>Nuestros Productos Destacados</h3>
+            <p>Mira las últimas novedades que tenemos para ti.</p>
+            <div id="productos-container" class="products-grid">
+                </div>
+        </section>
+
+        <section id="carrito" class="section-padding cart-detail">
+            <h3>Tu Carrito</h3>
+            <div id="carrito-detalle">
+                <p>El carrito está vacío. ¡Añade productos!</p>
+            </div>
+        </section>
+
+        <section id="reseñas" class="section-padding reviews-bg">
+            <h3>Opiniones de Clientes</h3>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <p>"Excelente calidad y envío rápido. ¡Recomendado 100%!"</p>
+                    <small>- Ana G.</small>
+                </div>
+                <div class="review-card">
+                    <p>"El mejor lugar para encontrar accesorios de telefonía."</p>
+                    <small>- Carlos R.</small>
+                </div>
+                <div class="review-card">
+                    <p>"El equipo de soporte es muy atento. Volveré a comprar."</p>
+                    <small>- Sofía L.</small>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contacto" class="section-padding contact-section">
+            <h3>Contáctanos</h3>
+            <p>Déjanos tu consulta y te responderemos a la brevedad.</p>
+            <form id="contact-form" action="https://formspree.io/f/tu-id-de-formspree" method="POST">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+                <label for="email">Correo Electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+                
+                <button type="submit" class="btn-submit">Enviar Mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-section info-section">
+            <h3>TechFlow</h3>
+            <p>&copy; 2025 Insumos. Todos los derechos reservados.</p>
+        </div>
+        
+        <nav class="footer-section nav-section">
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+        
+        <div class="footer-section social-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+                <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>
